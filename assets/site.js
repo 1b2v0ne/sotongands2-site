@@ -11,7 +11,7 @@ const SITE_CONFIG = {
     message: "entry.1492899135",
     source: "entry.369129554"
   },
-  GTM_ID: "",
+  GTM_ID: "GTM-PVXSDRXH",
   GA4_ID: "",
   GOOGLE_ADS_ID: "",
   NAVER_CONVERSION_ID: ""
