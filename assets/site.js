@@ -140,9 +140,12 @@ function trackThanksPage() {
   if (document.body.dataset.page !== "thanks") return;
 
   const params = new URLSearchParams(window.location.search);
-  trackEvent("generate_lead", {
+  const detail = {
     source: params.get("source") || params.get("utm_source") || "unknown"
-  });
+  };
+
+  trackEvent("generate_lead", detail);
+  trackEvent("Custom Event - generate_lead", detail);
 }
 
 function init() {
