@@ -105,7 +105,7 @@ function bindLeadForm() {
     if (!endpoint || activeFields.length === 0) {
       const payload = Object.fromEntries(formData.entries());
       window.sessionStorage.setItem("pendingLead", JSON.stringify(payload));
-      window.location.href = "/thanks/?mode=preview";
+      window.location.href = "../thanks/?mode=preview";
       return;
     }
 
@@ -126,7 +126,7 @@ function bindLeadForm() {
       trackEvent("lead_form_submit_success", {
         source: formData.get("source") || "unknown"
       });
-      window.location.href = `/thanks/?source=${encodeURIComponent(formData.get("source") || "unknown")}`;
+      window.location.href = `../thanks/?source=${encodeURIComponent(formData.get("source") || "unknown")}`;
     } catch (err) {
       error.textContent = "접수 중 문제가 발생했습니다. 잠시 후 다시 시도해주세요.";
       error.classList.add("show");
