@@ -12,7 +12,7 @@ const SITE_CONFIG = {
     source: "entry.369129554"
   },
   GTM_ID: "GTM-PVXSDRXH",
-  GA4_ID: "",
+  GA4_ID: "G-M32RBBVX85",
   GOOGLE_ADS_ID: "",
   NAVER_CONVERSION_ID: ""
 };
@@ -136,8 +136,18 @@ function bindLeadForm() {
   });
 }
 
+function trackThanksPage() {
+  if (document.body.dataset.page !== "thanks") return;
+
+  const params = new URLSearchParams(window.location.search);
+  trackEvent("generate_lead", {
+    source: params.get("source") || params.get("utm_source") || "unknown"
+  });
+}
+
 function init() {
   applyVariant();
+  trackThanksPage();
   bindLeadForm();
 }
 

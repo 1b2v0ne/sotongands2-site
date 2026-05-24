@@ -19,10 +19,11 @@
 - 실제 로고 PNG 적용 완료
 - GitHub Pages custom domain용 `CNAME` 추가 완료
 - Google Tag Manager `GTM-PVXSDRXH` 설치 완료
+- Google Analytics 4 측정 ID `G-M32RBBVX85` 확인 완료
 
 ## 배포 전 확인할 일
 
-1. `assets/site.js`의 `GA4_ID`, `GOOGLE_ADS_ID`, `NAVER_CONVERSION_ID`를 실제 값으로 교체합니다.
+1. `assets/site.js`의 `GOOGLE_ADS_ID`, `NAVER_CONVERSION_ID`를 실제 값으로 교체합니다.
 2. 사업자등록번호, 연락 가능 채널, 개인정보 보관기간을 최종 확인합니다.
 3. GA4, Google Ads, 네이버 전환 태그를 GTM에서 연결합니다.
 
