@@ -12,6 +12,8 @@
 - `/thanks/` 상담 신청 완료 및 전환 측정 페이지
 - `/privacy/` 개인정보처리방침
 - `/terms/` 서비스 유의사항
+- `/sitemap.xml` 검색엔진용 사이트맵
+- `/robots.txt` 검색엔진 크롤링 안내
 
 ## 연결 상태
 
@@ -20,6 +22,8 @@
 - GitHub Pages custom domain용 `CNAME` 추가 완료
 - Google Tag Manager `GTM-PVXSDRXH` 설치 완료
 - Google Analytics 4 측정 ID `G-M32RBBVX85` 확인 완료
+- Search Console 소유권 확인 완료
+- `sitemap.xml`, `robots.txt` 추가 완료
 
 ## 배포 전 확인할 일
 
