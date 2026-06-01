@@ -143,45 +143,6 @@ function bindLeadForm() {
   });
 }
 
-function updateMessageLine(textarea, label, value) {
-  if (!textarea || !value) return;
-  const line = `${label}: ${value}`;
-  const lines = textarea.value
-    .split(/\r?\n/)
-    .filter((item) => item.trim() && !item.startsWith(`${label}:`));
-  textarea.value = [line, ...lines].join("\n");
-  textarea.dispatchEvent(new Event("input", { bubbles: true }));
-}
-
-function bindDiagnosisOptions() {
-  const options = document.querySelectorAll("[data-diagnosis-option]");
-  if (options.length === 0) return;
-
-  options.forEach((option) => {
-    option.addEventListener("click", () => {
-      const group = option.dataset.group;
-      const target = option.dataset.target;
-      const value = option.dataset.value;
-
-      document.querySelectorAll(`[data-diagnosis-option][data-group="${group}"]`).forEach((item) => {
-        const selected = item === option;
-        item.classList.toggle("is-selected", selected);
-        item.setAttribute("aria-pressed", selected ? "true" : "false");
-      });
-
-      if (target === "message") {
-        updateMessageLine(document.querySelector("#message"), option.dataset.label || "필요자금 목적", value);
-        return;
-      }
-
-      const field = document.querySelector(`#${target}`);
-      if (!field) return;
-      field.value = value;
-      field.dispatchEvent(new Event("change", { bubbles: true }));
-    });
-  });
-}
-
 function trackThanksPage() {
   if (document.body.dataset.page !== "thanks") return;
 
@@ -197,7 +158,6 @@ function trackThanksPage() {
 function init() {
   applyVariant();
   trackThanksPage();
-  bindDiagnosisOptions();
   bindLeadForm();
 }
 
