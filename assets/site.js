@@ -56,7 +56,14 @@ function getVariant() {
 
 function getLeadSource() {
   const params = new URLSearchParams(window.location.search);
-  return params.get("source") || params.get("utm_source") || params.get("type") || document.body.dataset.source || pageVariants[getVariant()].source;
+  const explicitSource = params.get("source");
+  if (explicitSource) return explicitSource;
+
+  const baseSource = document.body.dataset.source || params.get("type") || pageVariants[getVariant()].source;
+  const campaignParts = [params.get("utm_source"), params.get("utm_medium"), params.get("utm_campaign")]
+    .filter(Boolean);
+
+  return campaignParts.length ? `${baseSource} | ${campaignParts.join(" / ")}` : baseSource;
 }
 
 function applyVariant() {
@@ -143,6 +150,7 @@ function updateMessageLine(textarea, label, value) {
     .split(/\r?\n/)
     .filter((item) => item.trim() && !item.startsWith(`${label}:`));
   textarea.value = [line, ...lines].join("\n");
+  textarea.dispatchEvent(new Event("input", { bubbles: true }));
 }
 
 function bindDiagnosisOptions() {
@@ -156,7 +164,9 @@ function bindDiagnosisOptions() {
       const value = option.dataset.value;
 
       document.querySelectorAll(`[data-diagnosis-option][data-group="${group}"]`).forEach((item) => {
-        item.classList.toggle("is-selected", item === option);
+        const selected = item === option;
+        item.classList.toggle("is-selected", selected);
+        item.setAttribute("aria-pressed", selected ? "true" : "false");
       });
 
       if (target === "message") {

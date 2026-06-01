@@ -422,6 +422,11 @@ h1 {
   color: var(--navy);
 }
 
+.diagnostic-option:focus-visible {
+  outline: 3px solid rgba(25, 109, 72, 0.28);
+  outline-offset: 2px;
+}
+
 .diagnostic-card .btn {
   width: 100%;
   margin-top: 8px;
