@@ -318,6 +318,213 @@ h1 {
   font-weight: 800;
 }
 
+.diagnostic-hero {
+  border-bottom: 1px solid var(--line);
+  background: #f7fafc;
+}
+
+.diagnostic-hero .section-inner {
+  display: grid;
+  grid-template-columns: minmax(0, 0.92fr) minmax(340px, 1.08fr);
+  gap: 42px;
+  align-items: center;
+  padding: 58px 0 46px;
+}
+
+.diagnostic-title {
+  margin: 16px 0 18px;
+  font-size: 50px;
+  line-height: 1.08;
+}
+
+.diagnostic-copy {
+  max-width: 620px;
+  color: #475467;
+  font-size: 18px;
+}
+
+.diagnostic-proof {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 24px;
+}
+
+.diagnostic-proof span {
+  border: 1px solid #d9e4f3;
+  border-radius: 999px;
+  background: #ffffff;
+  color: #344054;
+  padding: 8px 11px;
+  font-size: 13px;
+  font-weight: 900;
+}
+
+.diagnostic-card {
+  border: 1px solid #dfe7f2;
+  border-radius: var(--radius);
+  background: #ffffff;
+  padding: 22px;
+  box-shadow: var(--shadow);
+}
+
+.diagnostic-card h2 {
+  margin-bottom: 8px;
+  font-size: 24px;
+  line-height: 1.25;
+}
+
+.diagnostic-card > p {
+  margin-bottom: 18px;
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.diagnostic-step {
+  display: grid;
+  gap: 9px;
+  padding: 16px 0;
+  border-top: 1px solid var(--line);
+}
+
+.diagnostic-step:first-of-type {
+  border-top: 0;
+  padding-top: 0;
+}
+
+.diagnostic-step strong {
+  font-size: 14px;
+}
+
+.diagnostic-options {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.diagnostic-option {
+  min-height: 42px;
+  border: 1px solid #d9e4f3;
+  border-radius: var(--radius);
+  background: #f8fafc;
+  color: #344054;
+  padding: 0 11px;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 900;
+  text-align: left;
+}
+
+.diagnostic-option:hover,
+.diagnostic-option.is-selected {
+  border-color: #9fbbe7;
+  background: #eef4ff;
+  color: var(--navy);
+}
+
+.diagnostic-card .btn {
+  width: 100%;
+  margin-top: 8px;
+}
+
+.diagnostic-card-note {
+  margin: 12px 0 0;
+  color: #667085;
+  font-size: 12px;
+}
+
+.diagnostic-strip {
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  background: #ffffff;
+}
+
+.diagnostic-strip .section-inner {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1px;
+  background: var(--line);
+}
+
+.strip-item {
+  background: #ffffff;
+  padding: 22px;
+}
+
+.strip-item strong {
+  display: block;
+  margin-bottom: 5px;
+  color: var(--navy);
+  font-size: 18px;
+}
+
+.strip-item span {
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.diagnostic-section {
+  padding: 72px 0;
+}
+
+.fit-list {
+  display: grid;
+  gap: 12px;
+}
+
+.fit-item {
+  display: grid;
+  grid-template-columns: 34px 1fr;
+  gap: 12px;
+  align-items: start;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: #ffffff;
+  padding: 18px;
+}
+
+.fit-item span {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  border-radius: var(--radius);
+  background: #eef4ff;
+  color: var(--navy);
+  font-weight: 900;
+}
+
+.fit-item h3 {
+  margin-bottom: 4px;
+  font-size: 18px;
+}
+
+.fit-item p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.diagnostic-form-intro {
+  border: 1px solid #d9e4f3;
+  border-radius: var(--radius);
+  background: #f8fafc;
+  padding: 18px;
+}
+
+.diagnostic-form-intro strong {
+  display: block;
+  margin-bottom: 8px;
+  color: var(--navy);
+}
+
+.diagnostic-form-intro p {
+  margin-bottom: 0;
+  color: var(--muted);
+  font-size: 14px;
+}
+
 .progress {
   height: 10px;
   border-radius: 999px;
@@ -679,12 +886,17 @@ h1 {
   display: none;
 }
 
+body[data-source="v2-diagnostic"] .floating-cta {
+  display: none;
+}
+
 @media (max-width: 880px) {
   .nav-links {
     display: none;
   }
 
   .hero .section-inner,
+  .diagnostic-hero .section-inner,
   .form-wrap,
   .footer-grid {
     grid-template-columns: 1fr;
@@ -701,6 +913,10 @@ h1 {
   }
 
   .proof-row {
+    grid-template-columns: 1fr;
+  }
+
+  .diagnostic-strip .section-inner {
     grid-template-columns: 1fr;
   }
 
@@ -746,7 +962,15 @@ h1 {
     padding: 52px 0 44px;
   }
 
+  .diagnostic-hero .section-inner {
+    padding: 44px 0 38px;
+  }
+
   h1 {
+    font-size: 34px;
+  }
+
+  .diagnostic-title {
     font-size: 34px;
   }
 
@@ -765,6 +989,10 @@ h1 {
   }
 
   .form-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .diagnostic-options {
     grid-template-columns: 1fr;
   }
 
