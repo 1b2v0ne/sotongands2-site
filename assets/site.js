@@ -169,9 +169,35 @@ function bindFloatingCta() {
   window.addEventListener("resize", update);
 }
 
+function bindInternalAnchors() {
+  document.querySelectorAll("a[href^='#']").forEach((link) => {
+    link.addEventListener("click", (event) => {
+      const hash = link.getAttribute("href");
+      if (!hash || hash === "#") return;
+
+      const target = document.querySelector(hash);
+      if (!target) return;
+
+      event.preventDefault();
+
+      const header = document.querySelector(".site-header");
+      const headerHeight = header ? header.getBoundingClientRect().height : 0;
+      const offset = hash === "#top" ? 0 : headerHeight + 16;
+      const top = hash === "#top" ? 0 : target.getBoundingClientRect().top + window.scrollY - offset;
+
+      window.history.pushState(null, "", hash);
+      window.scrollTo({
+        top: Math.max(0, top),
+        behavior: "smooth"
+      });
+    });
+  });
+}
+
 function init() {
   applyVariant();
   trackThanksPage();
+  bindInternalAnchors();
   bindFloatingCta();
   bindLeadForm();
 }
