@@ -319,9 +319,19 @@ h1 {
 }
 
 .mini-label {
-  color: var(--muted);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: fit-content;
+  min-width: 56px;
+  min-height: 30px;
+  border: 1px solid #d7e8ff;
+  border-radius: 7px;
+  background: #edf6ff;
+  color: var(--navy);
+  padding: 5px 10px;
   font-size: 13px;
-  font-weight: 800;
+  font-weight: 900;
 }
 
 .diagnostic-hero {
