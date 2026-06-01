@@ -302,6 +302,15 @@ h1 {
   gap: 14px;
 }
 
+.visual-panel .hero-actions {
+  margin-bottom: 18px;
+}
+
+.visual-panel .hero-note {
+  margin: 0;
+  font-size: 13px;
+}
+
 .mini-row {
   display: grid;
   grid-template-columns: 112px 1fr;
