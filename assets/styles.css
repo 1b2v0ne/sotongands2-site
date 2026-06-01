@@ -964,6 +964,10 @@ body[data-source="v2-diagnostic"] .floating-cta {
     bottom: 14px;
     left: 14px;
     z-index: 25;
+    display: none;
+  }
+
+  .floating-cta.is-visible {
     display: block;
   }
 

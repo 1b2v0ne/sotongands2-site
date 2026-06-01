@@ -155,9 +155,24 @@ function trackThanksPage() {
   trackEvent("Custom Event - generate_lead", detail);
 }
 
+function bindFloatingCta() {
+  const floatingCta = document.querySelector(".floating-cta");
+  if (!floatingCta || document.body.dataset.source === "v2-diagnostic") return;
+
+  const update = () => {
+    const visible = window.matchMedia("(max-width: 640px)").matches && window.scrollY > 320;
+    floatingCta.classList.toggle("is-visible", visible);
+  };
+
+  update();
+  window.addEventListener("scroll", update, { passive: true });
+  window.addEventListener("resize", update);
+}
+
 function init() {
   applyVariant();
   trackThanksPage();
+  bindFloatingCta();
   bindLeadForm();
 }
 
