@@ -13,10 +13,10 @@
     <title>정책자금 무료 상담 | 소통과 상생</title>
     <meta name="description" content="개인사업자와 소상공인을 위한 정책자금 무료 상담. 사업 상황에 맞는 정책자금 방향을 검토하고 진행 절차를 안내드립니다.">
     <link rel="icon" type="image/png" href="../assets/logo.png">
-    <link rel="stylesheet" href="../assets/styles.css">
-    <script defer src="../assets/site.js"></script>
+    <link rel="stylesheet" href="../assets/styles.css?v=v1-consult-check-card">
+    <script defer src="../assets/site.js?v=v1-phone-normalize"></script>
   </head>
-  <body id="top" data-variant="general">
+  <body id="top" class="policy-landing-page" data-variant="general">
     <!-- Google Tag Manager (noscript) -->
     <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PVXSDRXH"
     height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
@@ -45,22 +45,44 @@
     <main>
       <section class="diagnostic-hero">
         <div class="section-inner">
-          <div>
+          <div class="hero-copy-panel">
             <span class="eyebrow">개인사업자 · 소상공인 정책자금 무료 상담</span>
             <h1 class="diagnostic-title">정책자금, 간편하게 바로 확인하세요.</h1>
             <p class="diagnostic-copy">사업자의 상황에 맞는 방식을 검토하고, 복잡한 신청과 진행을 전문 담당자가 1:1로 함께합니다.</p>
+            <div class="instant-criteria policy-instant-criteria" aria-label="정책자금 기본 대상 기준">
+              <article>
+                <span>01</span>
+                <div>
+                  <h2>개인사업자·소상공인</h2>
+                  <p>법인이 아닌 개인사업자 중심</p>
+                </div>
+              </article>
+              <article>
+                <span>02</span>
+                <div>
+                  <h2>현재 운영 중인 사업장</h2>
+                  <p>사업자등록 후 실제 영업 중</p>
+                </div>
+              </article>
+              <article>
+                <span>03</span>
+                <div>
+                  <h2>사업 운영 관련 자금 목적</h2>
+                  <p>운영·시설·상환 부담 완화 등</p>
+                </div>
+              </article>
+            </div>
+            <div class="credit-situation-points policy-credit-points" aria-label="신용상황 확인 포인트">
+              <strong>세 가지 체크포인트</strong>
+              <div class="credit-point-list">
+                <span><b>✓</b> 저신용자 가능</span>
+                <span><b>✓</b> 신용회복중 가능</span>
+                <span><b>✓</b> 채무조정중 가능</span>
+              </div>
+            </div>
             <p class="hero-note">상담 후 진행 가능 여부와 절차를 안내드리며, 실제 진행 여부는 상담 후 결정하실 수 있습니다.</p>
-            <div class="hero-actions">
-              <a class="btn btn-primary" href="#consult">무료 상담 신청</a>
-              <a class="btn btn-ghost" href="#process">진행 절차 보기</a>
-            </div>
-            <div class="diagnostic-proof">
-              <span>상담 신청 비용 없음</span>
-              <span>1영업일 이내 연락</span>
-              <span>개인사업자·소상공인 중심</span>
-            </div>
           </div>
-          <aside class="visual-panel" aria-label="빠른 상담 안내">
+          <aside id="hero-consult" class="visual-panel hero-consult-panel" aria-label="빠른 상담 신청">
             <div class="panel-top">
               <strong>빠른 상담 안내</strong>
               <span class="status-pill">1영업일 이내</span>
@@ -68,15 +90,28 @@
             <div class="panel-body">
               <h2>우리 사업장도 가능할까요?</h2>
               <p>상황을 남겨주시면 가능성을 안내드립니다.</p>
-              <div class="funding-card">
-                <div class="mini-row"><span class="mini-label">대상</span><div>개인사업자 및 소상공인 대상</div></div>
-                <div class="mini-row"><span class="mini-label">자금</span><div>운영자금·시설자금·상환 부담 완화</div></div>
-                <div class="mini-row"><span class="mini-label">검토</span><div>진행 가능 여부는 조건 검토 후 안내</div></div>
-              </div>
-              <div class="hero-actions">
-                <a class="btn btn-primary" href="#consult">무료 상담 신청</a>
-              </div>
-              <p class="hero-note">* 정책자금 승인 여부와 조건은 신청자의 신용, 업력, 매출 및 기관 심사 기준에 따라 달라질 수 있습니다.</p>
+              <form class="lead-form hero-lead-form" data-lead-form>
+                <input type="hidden" name="source" value="general">
+                <div class="form-grid">
+                  <div class="field"><label for="heroRepresentativeName">대표자명</label><input id="heroRepresentativeName" name="representativeName" required autocomplete="name" placeholder="대표자명"></div>
+                  <div class="field"><label for="heroCompanyName">업체명</label><input id="heroCompanyName" name="companyName" required placeholder="업체명"></div>
+                  <div class="field"><label for="heroIndustry">업종</label><input id="heroIndustry" name="industry" required placeholder="예: 음식점, 화물운송"></div>
+                  <div class="field"><label for="heroPhone">연락 받으실 번호</label><input id="heroPhone" name="phone" required inputmode="tel" autocomplete="tel" placeholder="010-0000-0000"></div>
+                  <div class="field full"><label for="heroBusinessAge">사업기간</label><select id="heroBusinessAge" name="businessAge" required><option value="">선택해주세요</option><option>6개월 미만</option><option>6개월 ~ 1년</option><option>1~3년</option><option>3년 이상</option></select></div>
+                  <div class="field full"><label for="heroMessage">추가 문의 및 요청사항</label><textarea id="heroMessage" name="message" placeholder="필요 자금, 기존 대출 여부, 궁금한 점"></textarea></div>
+                </div>
+                <div class="consent-box">
+                  <strong>개인정보 수집 및 이용 안내</strong>
+                  <p>수집 항목: 대표자명, 업체명, 업종, 연락처, 사업기간, 추가 문의 및 요청사항</p>
+                  <p>수집 목적: 정책자금 상담 안내 및 진행 가능성 검토</p>
+                  <p>보관 기간: 상담 종료 후 3개월 이내 파기</p>
+                  <p>입력하신 정보는 상담 목적 외에는 사용되지 않습니다.</p>
+                  <label class="check-row"><input type="checkbox" name="privacyConsent"> 개인정보 수집 및 이용에 동의합니다.</label>
+                </div>
+                <p class="form-error" data-form-error></p>
+                <div class="form-actions"><button class="btn btn-primary" type="submit">무료 상담 신청</button></div>
+                <p class="form-note">* 정책자금 승인 여부와 조건은 신청자의 신용, 업력, 매출 및 기관 심사 기준에 따라 달라질 수 있습니다.</p>
+              </form>
             </div>
           </aside>
         </div>
@@ -157,29 +192,42 @@
             <article class="card"><span class="number">03</span><h3>진행 안내</h3><p>가능한 방향과 필요한 절차를 안내합니다.</p></article>
             <article class="card"><span class="number">04</span><h3>1:1 진행 관리</h3><p>상담부터 진행 마무리까지 전문 담당자가 함께 관리합니다.</p></article>
           </div>
+          <div class="process-cta">
+            <a class="btn btn-primary" href="#consult">가능성 확인하기</a>
+          </div>
         </div>
       </section>
 
       <section id="consult" class="section section-muted">
         <div class="section-inner">
           <div class="form-wrap">
-            <aside class="form-aside">
-              <span class="eyebrow">무료 상담 신청</span>
-              <h2>정책자금 가능성부터 확인하세요</h2>
-              <p>상담 신청 내용을 남겨주시면 영업일 기준 1일 이내 연락드립니다.</p>
-              <div class="call-rules">
-                <div>개인사업자 및 소상공인 대상으로 상담합니다.</div>
-                <div>법인사업자 또는 무등록 사업자는 상담 범위에서 제외될 수 있습니다.</div>
-                <div>입력하신 정보는 상담 진행 목적 외에는 사용되지 않습니다.</div>
+            <div class="consult-info-stack">
+              <aside class="form-aside">
+                <span class="eyebrow">무료 상담 신청</span>
+                <h2>정책자금 가능성부터 확인하세요</h2>
+                <p>상담 신청 내용을 남겨주시면 영업일 기준 1일 이내 연락드립니다.</p>
+                <div class="call-rules">
+                  <div>개인사업자 · 소상공인 대상</div>
+                  <div>사업자 등록 후 운영 중 사업장</div>
+                  <div>사업 운영 · 설비 · 시설 자금</div>
+                </div>
+              </aside>
+              <div class="credit-situation-points policy-credit-points" aria-label="신용상황 확인 포인트">
+                <strong>세 가지 체크포인트</strong>
+                <div class="credit-point-list">
+                  <span><b>✓</b> 저신용자 가능</span>
+                  <span><b>✓</b> 신용회복중 가능</span>
+                  <span><b>✓</b> 채무조정중 가능</span>
+                </div>
               </div>
-            </aside>
+            </div>
             <form class="lead-form" data-lead-form>
               <input type="hidden" name="source" value="general">
               <div class="form-grid">
                 <div class="field"><label for="representativeName">대표자명</label><input id="representativeName" name="representativeName" required autocomplete="name" placeholder="대표자명을 입력해주세요"></div>
                 <div class="field"><label for="companyName">업체명</label><input id="companyName" name="companyName" required placeholder="업체명을 입력해주세요"></div>
                 <div class="field"><label for="industry">업종</label><input id="industry" name="industry" required placeholder="예: 음식점, 화물운송, 온라인판매"></div>
-                <div class="field"><label for="phone">연락 받으실 핸드폰 번호</label><input id="phone" name="phone" required inputmode="tel" autocomplete="tel" placeholder="010-000-0000"></div>
+                <div class="field"><label for="phone">연락 받으실 핸드폰 번호</label><input id="phone" name="phone" required inputmode="tel" autocomplete="tel" placeholder="010-0000-0000"></div>
                 <div class="field full"><label for="businessAge">사업기간</label><select id="businessAge" name="businessAge" required><option value="">선택해주세요</option><option>6개월 미만</option><option>6개월 ~ 1년</option><option>1~3년</option><option>3년 이상</option></select></div>
                 <div class="field full"><label for="message">추가 문의 및 요청사항</label><textarea id="message" name="message" placeholder="필요 자금, 기존 대출 여부, 궁금한 점 등을 편하게 남겨주세요."></textarea></div>
               </div>

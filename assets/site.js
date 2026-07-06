@@ -72,8 +72,9 @@ function applyVariant() {
     const key = node.dataset.variantText;
     if (variant[key]) node.textContent = variant[key];
   });
-  const sourceInput = document.querySelector("[name='source']");
-  if (sourceInput) sourceInput.value = getLeadSource();
+  document.querySelectorAll("[name='source']").forEach((sourceInput) => {
+    sourceInput.value = getLeadSource();
+  });
 }
 
 function trackEvent(name, detail = {}) {
@@ -81,65 +82,96 @@ function trackEvent(name, detail = {}) {
   window.dataLayer.push({ event: name, ...detail });
 }
 
+function buildThanksUrl(basePath, params = {}) {
+  const url = new URL(basePath, window.location.href);
+  Object.entries(params).forEach(([key, value]) => {
+    if (value) url.searchParams.set(key, value);
+  });
+  return url.href;
+}
+
+function formatPhoneNumber(value) {
+  const digits = value.replace(/\D/g, "").slice(0, 11);
+
+  if (digits.length <= 3) return digits;
+  if (digits.length <= 7) return `${digits.slice(0, 3)}-${digits.slice(3)}`;
+
+  return `${digits.slice(0, 3)}-${digits.slice(3, 7)}-${digits.slice(7)}`;
+}
+
+function bindPhoneFormatting() {
+  document.querySelectorAll("[data-lead-form] input[name='phone']").forEach((input) => {
+    input.setAttribute("maxlength", "13");
+    input.addEventListener("input", () => {
+      input.value = formatPhoneNumber(input.value);
+    });
+    input.addEventListener("blur", () => {
+      input.value = formatPhoneNumber(input.value);
+    });
+  });
+}
+
 function bindLeadForm() {
-  const form = document.querySelector("[data-lead-form]");
-  if (!form) return;
+  document.querySelectorAll("[data-lead-form]").forEach((form) => {
+    const error = form.querySelector("[data-form-error]");
+    const submit = form.querySelector("[type='submit']");
+    const originalSubmitText = submit.textContent;
+    const thanksPath = form.dataset.thanksPath || "../thanks/";
 
-  const error = form.querySelector("[data-form-error]");
-  const submit = form.querySelector("[type='submit']");
-  const originalSubmitText = submit.textContent;
+    form.addEventListener("submit", async (event) => {
+      event.preventDefault();
+      error.classList.remove("show");
 
-  form.addEventListener("submit", async (event) => {
-    event.preventDefault();
-    error.classList.remove("show");
+      const consent = form.querySelector("[name='privacyConsent']");
+      if (consent && !consent.checked) {
+        error.textContent = "개인정보 수집 및 이용에 동의해주세요.";
+        error.classList.add("show");
+        return;
+      }
 
-    const consent = form.querySelector("[name='privacyConsent']");
-    if (!consent.checked) {
-      error.textContent = "개인정보 수집 및 이용에 동의해주세요.";
-      error.classList.add("show");
-      return;
-    }
+      const formData = new FormData(form);
+      formData.set("phone", formatPhoneNumber(String(formData.get("phone") || "")));
 
-    const formData = new FormData(form);
-    const fields = SITE_CONFIG.FORM_FIELDS;
-    const endpoint = SITE_CONFIG.FORM_ENDPOINT;
-    const activeFields = Object.entries(fields).filter(([, entryId]) => entryId);
+      const fields = SITE_CONFIG.FORM_FIELDS;
+      const endpoint = SITE_CONFIG.FORM_ENDPOINT;
+      const activeFields = Object.entries(fields).filter(([, entryId]) => entryId);
 
-    trackEvent("lead_form_submit_attempt", {
-      source: formData.get("source") || "unknown"
-    });
-
-    if (!endpoint || activeFields.length === 0) {
-      const payload = Object.fromEntries(formData.entries());
-      window.sessionStorage.setItem("pendingLead", JSON.stringify(payload));
-      window.location.href = "../thanks/?mode=preview";
-      return;
-    }
-
-    const googleData = new FormData();
-    activeFields.forEach(([key, entryId]) => {
-      googleData.append(entryId, formData.get(key) || "");
-    });
-
-    submit.disabled = true;
-    submit.textContent = "접수 중입니다";
-
-    try {
-      await fetch(endpoint, {
-        method: "POST",
-        mode: "no-cors",
-        body: googleData
-      });
-      trackEvent("lead_form_submit_success", {
+      trackEvent("lead_form_submit_attempt", {
         source: formData.get("source") || "unknown"
       });
-      window.location.href = `../thanks/?source=${encodeURIComponent(formData.get("source") || "unknown")}`;
-    } catch (err) {
-      error.textContent = "접수 중 문제가 발생했습니다. 잠시 후 다시 시도해주세요.";
-      error.classList.add("show");
-      submit.disabled = false;
-      submit.textContent = originalSubmitText;
-    }
+
+      if (!endpoint || activeFields.length === 0) {
+        const payload = Object.fromEntries(formData.entries());
+        window.sessionStorage.setItem("pendingLead", JSON.stringify(payload));
+        window.location.href = buildThanksUrl(thanksPath, { mode: "preview" });
+        return;
+      }
+
+      const googleData = new FormData();
+      activeFields.forEach(([key, entryId]) => {
+        googleData.append(entryId, formData.get(key) || "");
+      });
+
+      submit.disabled = true;
+      submit.textContent = "접수 중입니다";
+
+      try {
+        await fetch(endpoint, {
+          method: "POST",
+          mode: "no-cors",
+          body: googleData
+        });
+        trackEvent("lead_form_submit_success", {
+          source: formData.get("source") || "unknown"
+        });
+        window.location.href = buildThanksUrl(thanksPath, { source: formData.get("source") || "unknown" });
+      } catch (err) {
+        error.textContent = "접수 중 문제가 발생했습니다. 잠시 후 다시 시도해주세요.";
+        error.classList.add("show");
+        submit.disabled = false;
+        submit.textContent = originalSubmitText;
+      }
+    });
   });
 }
 
@@ -180,7 +212,7 @@ function bindInternalAnchors() {
 
       event.preventDefault();
 
-      const header = document.querySelector(".site-header");
+      const header = document.querySelector(".site-header, .tool-header");
       const headerHeight = header ? header.getBoundingClientRect().height : 0;
       const offset = hash === "#top" ? 0 : headerHeight + 16;
       const top = hash === "#top" ? 0 : target.getBoundingClientRect().top + window.scrollY - offset;
@@ -199,6 +231,7 @@ function init() {
   trackThanksPage();
   bindInternalAnchors();
   bindFloatingCta();
+  bindPhoneFormatting();
   bindLeadForm();
 }
 
